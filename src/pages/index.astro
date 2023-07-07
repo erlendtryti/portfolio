@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
+import Thumbnail from "../components/Thumbnail.astro";
 
 const allProjects = await getCollection("projects");
 ---
@@ -14,7 +15,7 @@ const allProjects = await getCollection("projects");
 			<button class="px-4 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded transition-all duration-100">Contact Me</button>
 			<a
 				href="https://github.com/erlendtryti"
-				class="flex gap-2 px-4 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-900 hover:dark:bg-gray-950 rounded transition-all duration-100"
+				class="flex gap-2 px-4 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 hover:dark:bg-gray-900 rounded transition-all duration-75"
 			>
 				<svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path
@@ -32,143 +33,9 @@ const allProjects = await getCollection("projects");
 				allProjects.map((project) => (
 					<a
 						href={"project/" + project.slug}
-						class="@container sm:first:col-span-2 relative rounded overflow-hidden bg-gray-50 dark:bg-gray-950 projectShadow hover:scale-[100.5%] @sm:hover:scale-[100.25%] transition-transform"
-						style={"box-shadow: 0px 4px 32px 8px #" + project.data.color + "40;"}
+						class="@container sm:first:col-span-2 relative hover:scale-[100.5%] @sm:hover:scale-[100.25%] transition-transform"
 					>
-						<Image src={project.data.image} alt="" />
-						<div class="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-full text-white text-xl @sm:text-4xl">{project.data.title}</div>
-						<div class="absolute top-2 sm:top-4 left-1/2 -translate-x-1/2 text-black text-xs @sm:text-base mix-blend-overlay">
-							{project.data.date.slice(0, 4)}
-						</div>
-						<div class="flex gap-2 absolute top-2 sm:top-4 left-3 sm:left-6 text-black text-xs sm:text-base mix-blend-overlay">
-							{project.data.type.map((type) => {
-								if (type === "Design")
-									return (
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											class="lucide lucide-pen-tool"
-										>
-											<path d="m12 19 7-7 3 3-7 7-3-3z" />
-											<path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-											<path d="m2 2 7.586 7.586" />
-											<circle cx="11" cy="11" r="2" />
-										</svg>
-									);
-								if (type === "Development")
-									return (
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											class="lucide lucide-code"
-										>
-											<polyline points="16 18 22 12 16 6" />
-											<polyline points="8 6 2 12 8 18" />
-										</svg>
-									);
-							})}
-						</div>
-						<div class="flex gap-2 absolute top-2 sm:top-4 right-3 sm:right-6 text-black text-xs sm:text-base mix-blend-overlay items-center">
-							{project.data.technology.map((technology) => {
-								if (technology === "Figma")
-									return (
-										<svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<g clip-path="url(#clip0_7_1915)">
-												<path
-													d="M11.4206 3.337C11.4206 4.71436 10.304 5.83093 8.92662 5.83093H6.36792V0.843079H8.92662C10.304 0.843079 11.4206 1.95965 11.4206 3.337Z"
-													stroke="black"
-												/>
-												<path
-													d="M1.31531 3.337C1.31531 4.71436 2.43187 5.83093 3.80923 5.83093H6.36794V0.843079H3.80923C2.43187 0.843079 1.31531 1.95965 1.31531 3.337Z"
-													stroke="black"
-												/>
-												<path
-													d="M1.31531 8.32491C1.31531 9.70227 2.43187 10.8188 3.80923 10.8188H6.36794V5.83099H3.80923C2.43187 5.83099 1.31531 6.94755 1.31531 8.32491Z"
-													stroke="black"
-												/>
-												<path
-													d="M1.31531 13.3127C1.31531 14.6901 2.44797 15.8066 3.82533 15.8066C5.22057 15.8066 6.36794 14.6756 6.36794 13.2803V10.8188H3.80923C2.43187 10.8188 1.31531 11.9353 1.31531 13.3127Z"
-													stroke="black"
-												/>
-												<path
-													d="M6.36792 8.32491C6.36792 9.70227 7.48449 10.8188 8.86185 10.8188H8.92662C10.304 10.8188 11.4206 9.70227 11.4206 8.32491C11.4206 6.94755 10.304 5.83099 8.92662 5.83099H8.86185C7.48449 5.83099 6.36792 6.94755 6.36792 8.32491Z"
-													stroke="black"
-												/>
-											</g>
-											<defs>
-												<clipPath id="clip0_7_1915">
-													<rect width="11.1417" height="16" fill="white" transform="translate(0.797119 0.32486)" />
-												</clipPath>
-											</defs>
-										</svg>
-									);
-								if (technology === "Astro")
-									return (
-										<svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<g clip-path="url(#clip0_7_1922)">
-												<path
-													d="M4.88669 13.6774C4.1017 12.9693 3.87255 11.4815 4.1996 10.4036C4.76667 11.0832 5.55239 11.2985 6.36624 11.42C7.62267 11.6075 8.85657 11.5374 10.0237 10.9707C10.1572 10.9058 10.2806 10.8195 10.4265 10.7321C10.536 11.0457 10.5645 11.3622 10.5263 11.6844C10.4333 12.469 10.0376 13.0751 9.40827 13.5345C9.15662 13.7183 8.89033 13.8825 8.63042 14.0558C7.83194 14.5884 7.6159 15.2129 7.91595 16.1212C7.92308 16.1433 7.92946 16.1655 7.94558 16.2195C7.53791 16.0395 7.24011 15.7773 7.01321 15.4326C6.77355 15.0688 6.65953 14.6664 6.65353 14.231C6.65054 14.0191 6.65054 13.8053 6.62165 13.5964C6.55115 13.0871 6.30886 12.8591 5.85244 12.8459C5.384 12.8324 5.01345 13.1182 4.91518 13.5683C4.90769 13.6028 4.89681 13.6369 4.88594 13.677L4.88669 13.6774Z"
-													fill="black"
-												/>
-												<path
-													d="M0.938843 10.7336C0.938843 10.7336 3.08525 9.69059 5.23766 9.69059L6.8605 4.68069C6.92124 4.4384 7.09866 4.27376 7.29892 4.27376C7.49921 4.27376 7.67661 4.4384 7.73736 4.68069L9.36019 9.69059C11.9094 9.69059 13.659 10.7336 13.659 10.7336C13.659 10.7336 10.0132 0.8263 10.006 0.806423C9.9014 0.513509 9.72475 0.32486 9.48659 0.32486H5.11164C4.87349 0.32486 4.70397 0.513509 4.59219 0.806423C4.58431 0.825925 0.938843 10.7336 0.938843 10.7336Z"
-													fill="black"
-												/>
-											</g>
-											<defs>
-												<clipPath id="clip0_7_1922">
-													<rect width="12.7595" height="16" fill="white" transform="translate(0.938843 0.32486)" />
-												</clipPath>
-											</defs>
-										</svg>
-									);
-								if (technology === "Tailwind")
-									return (
-										<svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<g clip-path="url(#clip0_7_1930)">
-												<mask
-													id="mask0_7_1930"
-													style="mask-type:luminance"
-													maskUnits="userSpaceOnUse"
-													x="0"
-													y="0"
-													width="16"
-													height="11"
-												>
-													<path d="M0 0.435974H16V10.036H0V0.435974Z" fill="white" />
-												</mask>
-												<g mask="url(#mask0_7_1930)">
-													<path
-														fill-rule="evenodd"
-														clip-rule="evenodd"
-														d="M8 0.435974C5.86667 0.435974 4.53333 1.50264 4 3.63597C4.8 2.56931 5.73333 2.16931 6.8 2.43597C7.40859 2.58797 7.84356 3.02975 8.32504 3.51834C9.10933 4.31449 10.0172 5.23597 12 5.23597C14.1333 5.23597 15.4667 4.16931 16 2.03597C15.2 3.10264 14.2667 3.50264 13.2 3.23597C12.5914 3.08397 12.1564 2.6422 11.675 2.1536C10.8907 1.35746 9.98281 0.435974 8 0.435974ZM4 5.23597C1.86667 5.23597 0.533333 6.30264 0 8.43597C0.8 7.36931 1.73333 6.96931 2.8 7.23597C3.40859 7.38827 3.84356 7.82975 4.32504 8.31834C5.10933 9.11449 6.01719 10.036 8 10.036C10.1333 10.036 11.4667 8.96931 12 6.83597C11.2 7.90264 10.2667 8.30264 9.2 8.03597C8.59141 7.88397 8.15644 7.4422 7.67496 6.9536C6.89067 6.15746 5.98281 5.23597 4 5.23597Z"
-														fill="black"
-													/>
-												</g>
-											</g>
-											<defs>
-												<clipPath id="clip0_7_1930">
-													<rect width="16" height="9.77778" fill="white" transform="translate(0 0.435974)" />
-												</clipPath>
-											</defs>
-										</svg>
-									);
-							})}
-						</div>
+						<Thumbnail project={project.data} />
 					</a>
 				))
 			}
