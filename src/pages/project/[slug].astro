@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+
+export async function getStaticPaths() {
+    const allProjects = await getCollection("projects");
+    return allProjects.map((project) => ({
+        params: { slug: project.slug },
+        props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<Layout title={project.data.title + " | erlendtryti"}>
+    <div class="rounded overflow-hidden mx-8 md:mx-0" style={"box-shadow: 0px 4px 32px 8px #" + project.data.color + "40;"}>
+        <Image src={project.data.image} alt="" />
+    </div>
+    <h1 class="m-8 text-2xl">{project.data.title}</h1>
+    <Content />
+</Layout>
